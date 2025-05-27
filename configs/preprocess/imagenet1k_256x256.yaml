@@ -1,0 +1,40 @@
+model:
+  vae: mit-han-lab/dc-ae-f32c32-sana-1.1-diffusers
+
+data:
+  dataset:
+    data_dir: <Your imagenet1k directory>/train
+    target_dir: ./datasets/imagenet1k/dc-ae-f32c32-sana-1.1-diffusers-256x256
+    resolution: 256
+  dataloader:
+    num_workers: 1
+    batch_size: 64  # Batch size (per device) for the training dataloader.
+
+  
+  
+training:
+  tracker: null
+  tracker_kwargs: {'wandb': {'group': 't2i'}}
+  max_train_steps: 100000
+  checkpointing_steps: 200
+  checkpoints_total_limit: 2
+  resume_from_checkpoint: latest
+  learning_rate: 1.0e-4
+  learning_rate_base_batch_size: 256
+  scale_lr: True
+  lr_scheduler: constant # "linear", "cosine", "cosine_with_restarts", "polynomial", "constant", "constant_with_warmup"]
+  lr_warmup_steps: 4000
+  gradient_accumulation_steps: 1
+  optimizer: 
+    target: torch.optim.AdamW
+    params:
+      # betas: ${tuple:0.9, 0.999}
+      betas: [0.9, 0.95]
+      weight_decay: 1.0e-2
+      eps: 1.0e-6
+  max_grad_norm: 1.0
+  proportion_empty_prompts: 0.0
+  mixed_precision: bf16 # ["no", "fp16", "bf16"]
+  allow_tf32: True 
+  validation_steps: 500
+  checkpoint_list: [20000, 40000, 60000, 80000]
