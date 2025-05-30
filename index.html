@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="description"
+        content="R2E-Gym: Procedural Environment Generation and Hybrid Verifiers for Scaling Open-Weights SWE Agents" />
+    <meta name="keywords"
+        content="R2E-Gym, Large Language Models, LLM, Software Engineering, SWE Agents, Procedural Environment Generation, Hybrid Verifiers" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>R2E-Gym: Scaling Open-Weights SWE Agents</title>
+
+    <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet" />
+    <link rel="stylesheet" href="./css/bulma.min.css" />
+    <link rel="stylesheet" href="./css/bulma-carousel.min.css" />
+    <link rel="stylesheet" href="./css/bulma-slider.min.css" />
+    <link rel="stylesheet" href="./css/fontawesome.all.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css" />
+    <link rel="stylesheet" href="./css/index.css" />
+    <!-- add page icon at 64 x 64-->
+    <!-- <link rel="icon" type="image/png" href="./assets/re.png" sizes="256x256" /> -->
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script defer src="./js/fontawesome.all.min.js"></script>
+    <script src="./js/bulma-carousel.min.js"></script>
+    <script src="./js/bulma-slider.min.js"></script>
+    <script src="./js/index.js"></script>
+</head>
+
+<body>
+    <section class="hero fade-in">
+        <div class="hero-body">
+            <div class="container">
+                <div class="has-text-centered">
+                    <h1 class="publication-title">
+                        <span class="dnerf">R2E-Gym</span>
+                    </h1>
+                    <h2 class="publication-subtitle">
+                        Procedural Environment Generation and Hybrid Verifiers for Scaling Open-Weights SWE Agents
+                    </h2>
+
+                    <div class="publication-authors">
+                        <span class="author-block">
+                            <a href="https://naman-ntc.github.io/">Naman Jain</a><sup>*,1</sup>,</span>
+                        <span class="author-block">
+                            <a href="https://1jsingh.github.io/">Jaskirat Singh</a><sup>*,2</sup>,</span>
+                        <span class="author-block">
+                            <a href="https://manishs.org/">Manish Shetty</a><sup>1</sup>,</span>
+                        <!-- <span class="author-block">
+                            <a href="https://tianjunz.github.io/">Tianjun Zhang</a><sup>1</sup>,</span> -->
+                        <span class="author-block">
+                            <a href="https://zheng-lab-anu.github.io/">Liang Zheng</a><sup>2</sup>,</span>
+                        <span class="author-block">
+                            <a href="https://people.eecs.berkeley.edu/~ksen">Koushik Sen</a><sup>1</sup>,</span>
+                        <span class="author-block">
+                            <a href="https://people.eecs.berkeley.edu/~istoica/">Ion Stoica</a><sup>1</sup></span>
+                    </div>
+
+                    <div class="publication-authors">
+                        <span class="author-block"><sup>1</sup>UC Berkeley</span>
+                        <span class="author-block"><sup>2</sup>Australian National University</span>
+                    </div>
+
+                    <div style="margin-top: 0.5rem; font-size: 0.9rem; color: var(--text-light);">
+                        <span><sup>*</sup>Equal Contribution,</span>
+                    </div>
+
+                    <div class="publication-links">
+                        <span class="link-block">
+                            <a href="./assets/paper.pdf" class="external-link button is-dark">
+                                <span class="icon">
+                                    <i class="fas fa-file-pdf"></i>
+                                </span>
+                                <span>Paper</span>
+                            </a>
+                        </span>
+                        <span class="link-block">
+                            <a href="#" class="external-link button is-dark">
+                                <span class="icon">
+                                    <i class="ai ai-arxiv"></i>
+                                </span>
+                                <span>arXiv (upcoming)</span>
+                            </a>
+                        </span>
+                        <span class="link-block">
+                            <a href="https://github.com/R2E-Gym/R2E-Gym" class="external-link button is-dark">
+                                <span class="icon">
+                                    <i class="fab fa-github"></i>
+                                </span>
+                                <span>Code</span>
+                            </a>
+                        </span>
+                        <span class="link-block">
+                            <a href="https://huggingface.co/R2E-Gym" class="external-link button is-dark">
+                                <!-- <span class="icon">
+                                    <i class="fab fa-github"></i>
+                                </span> -->
+                                <span>🤗 Data & Models</span>
+                            </a>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section fade-in">
+        <div class="container">
+            <div class="columns is-centered">
+                <div class="column is-10">
+                    <div class="columns is-centered">
+                        <div class="column is-4"
+                            style="display: flex; flex-direction: column; justify-content: center;">
+                            <img src="./assets/r2egym/overview-p1-v10.png" alt="Synthetic Data Generation"
+                                style="object-fit: contain; height: 280px;" />
+                        </div>
+                        <div class="column is-4"
+                            style="display: flex; flex-direction: column; justify-content: center;">
+                            <img src="./assets/r2egym/overview-p2.png" alt="Hybrid Test-time Scaling"
+                                style="object-fit: contain; height: 280px;" />
+                        </div>
+                        <div class="column is-4"
+                            style="display: flex; flex-direction: column; justify-content: center;">
+                            <img src="./assets/r2egym/overview-p3.png" alt="Open-weights SOTA Performance"
+                                style="object-fit: contain; height: 280px;" />
+                        </div>
+                    </div>
+                    <p class="figure-caption">
+                        <b>Figure 1:</b> (Left) SWE-Gen creates executable training environments from commits
+                        using automated test generation and backtranslation. (Middle) Our hybrid approach achieves 51%
+                        success rate through complementary strengths of execution-based and execution-free verifiers.
+                        (Right) Our approach establishes a new state-of-the-art for open-weight SWE agents.
+                    </p>
+                </div>
+            </div>
+
+            <div class="columns is-centered">
+                <div class="column is-10">
+                    <div class="highlight-box"
+                        style="background: linear-gradient(to right, #f8fafc, #f1f5f9); border-radius: 12px; border-left: 6px solid var(--primary-color); box-shadow: 0 4px 12px rgba(0,0,0,0.05);">
+                        <h3 class="title is-4 has-text-centered"
+                            style="margin-bottom: 1.5rem; color: var(--primary-color);">🚀 Key Contributions </h3>
+
+                        <div style="display: flex; flex-direction: column; gap: 1.2rem;">
+                            <div class="innovation-item" style="display: flex; align-items: flex-start; gap: 0.8rem;">
+                                <div
+                                    style="background-color: var(--primary-color); color: white; padding: 0.6rem; border-radius: 50%; font-size: 1.2rem; display: flex; align-items: center; justify-content: center; min-width: 2.6rem; height: 2.6rem;">
+                                    🔮
+                                </div>
+                                <div>
+                                    <h4 style="font-weight: 600; margin-bottom: 0.2rem; font-size: 1.1rem;">SWE-Gen
+                                        Data
+                                        Engine</h4>
+                                    <p style="margin: 0; line-height: 1.4;">Generates 8.1K executable environments
+                                        directly from commits with automated tests and natural language descriptions
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="innovation-item" style="display: flex; align-items: flex-start; gap: 0.8rem;">
+                                <div
+                                    style="background-color: var(--primary-color); color: white; padding: 0.6rem; border-radius: 50%; font-size: 1.2rem; display: flex; align-items: center; justify-content: center; min-width: 2.6rem; height: 2.6rem;">
+                                    🔍
+                                </div>
+                                <div>
+                                    <h4 style="font-weight: 600; margin-bottom: 0.2rem; font-size: 1.1rem;">Hybrid
+                                        Verification System</h4>
+                                    <p style="margin: 0; line-height: 1.4;">Combines execution-based testing with
+                                        execution-free verification for superior solution ranking</p>
+                                </div>
+                            </div>
+
+                            <div class="innovation-item" style="display: flex; align-items: flex-start; gap: 0.8rem;">
+                                <div
+                                    style="background-color: var(--primary-color); color: white; padding: 0.6rem; border-radius: 50%; font-size: 1.2rem; display: flex; align-items: center; justify-content: center; min-width: 2.6rem; height: 2.6rem;">
+                                    🏆
+                                </div>
+                                <div>
+                                    <h4 style="font-weight: 600; margin-bottom: 0.2rem; font-size: 1.1rem;">SOTA
+                                        Performance</h4>
+                                    <p style="margin: 0; line-height: 1.4;">51% success rate on SWE-Bench with just
+                                        26
+                                        rollouts — 19% higher than previous open-weight models</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section fade-in">
+        <div class="container">
+            <div class="columns is-centered">
+                <div class="column is-8">
+                    <h2 class="title is-3">Introduction</h2>
+                    <div class="content">
+                        <p>
+                            Autonomous software engineering (SWE) has made remarkable progress in solving real-world
+                            programming challenges. While LLM-based SWE agents have demonstrated impressive
+                            capabilities, current state-of-the-art performance is predominantly achieved by proprietary
+                            models, with open-source alternatives lagging significantly behind.
+                            Closing this performance gap requires addressing two core challenges: <b>First</b>, we need
+                            scalable methods to curate diverse, high-quality execution environments for training.
+                            <b>Second</b>, we need efficient strategies for scaling test-time compute.
+                        </p>
+
+                        <p>
+                            R2E-Gym addresses these challenges as the largest procedurally generated environment for
+                            training real-world SWE agents—comprising over 8.1K problems with executable environments
+                            and problem statements through our SWE-Gen pipeline. Next, we introduce a hybrid verifiers
+                            that combines the strengths of execution-based and execution-free verification methods,
+                            enabling significantly better performance at test time.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section fade-in">
+        <div class="container">
+            <div class="columns is-centered">
+                <div class="column is-8">
+                    <h2 class="title is-3">R2E-Gym: Procedural Synthetic Data Generation</h2>
+
+                    <h3 class="title is-4">The SWE-Gen Approach</h3>
+
+                    <div
+                        style="background-color: #f8fafc; border-radius: 12px; border-left: 6px solid #047857; padding: 1.2rem; margin-bottom: 1.5rem;">
+                        <p style="font-weight: 600; margin-bottom: 0.8rem;">SWE-Gen breaks traditional dependencies on
+                            human-written issues through a novel synthetic data pipeline:</p>
+
+                        <div style="display: flex; flex-direction: column; gap: 0.8rem;">
+
+                            <div style="display: flex; align-items: flex-start; gap: 0.8rem;">
+                                <div
+                                    style="background-color: #047857; color: white; padding: 0.4rem; border-radius: 50%; font-size: 0.9rem; display: flex; align-items: center; justify-content: center; min-width: 2rem; height: 2rem;">
+                                    1
+                                </div>
+                                <div>
+                                    <p style="margin: 0; line-height: 1.4;"><strong>Automated Test Generation:</strong>
+                                        Creates reproduction tests that validate patch correctness in cases where humans
+                                        don't provide one</p>
+                                </div>
+                            </div>
+
+                            <div style="display: flex; align-items: flex-start; gap: 0.8rem;">
+                                <div
+                                    style="background-color: #047857; color: white; padding: 0.4rem; border-radius: 50%; font-size: 0.9rem; display: flex; align-items: center; justify-content: center; min-width: 2rem; height: 2rem;">
+                                    2
+                                </div>
+                                <div>
+                                    <p style="margin: 0; line-height: 1.4;"><strong>Issue Generation:</strong> Converts
+                                        code changes into natural language problem statements using execution assisted
+                                        back-translation for agent training</p>
+                                </div>
+                            </div>
+
+                            <div style="display: flex; align-items: flex-start; gap: 0.8rem;">
+                                <div
+                                    style="background-color: #047857; color: white; padding: 0.4rem; border-radius: 50%; font-size: 0.9rem; display: flex; align-items: center; justify-content: center; min-width: 2rem; height: 2rem;">
+                                    3
+                                </div>
+                                <div>
+                                    <p style="margin: 0; line-height: 1.4;"><strong>Executable Environments:</strong>
+                                        Released over 8.1K unique tasks across 13 repositories with pre-built docker
+                                        images </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="columns is-centered">
+                        <div class="column is-12">
+                            <div class="columns is-centered">
+                                <div class="column is-6"
+                                    style="display: flex; flex-direction: column; justify-content: center;">
+                                    <img src="./assets/r2egym/r2e_gym_repo_distribution.png"
+                                        alt="Complete Dataset Distribution"
+                                        style="object-fit: contain; height: 280px;" />
+                                    <p class="figure-caption" style="margin-top: 1rem;">
+                                        Complete dataset distribution
+                                    </p>
+                                </div>
+                                <div class="column is-6"
+                                    style="display: flex; flex-direction: column; justify-content: center;">
+                                    <img src="./assets/r2egym/r2e_gym_subset_repo_distribution.png"
+                                        alt="Subset Dataset Distribution" style="object-fit: contain; height: 280px;" />
+                                    <p class="figure-caption" style="margin-top: 1rem;">
+                                        Subset (non overlapping with SWE-Bench) dataset distribution
+                                    </p>
+                                </div>
+                            </div>
+                            <p class="figure-caption">
+                                <b>Figure 2:</b> Dataset composition showing the diversity of repositories
+                                and problems in our synthetic dataset, enabling significantly larger and more diverse
+                                training environments than previous methods. Left: Full R2E-Gym dataset. Right:
+                                R2E-Gym subset (non-overlapping with SWE-Bench) used for training.
+                            </p>
+                        </div>
+                    </div>
+
+                    <h3 class="title is-4">Training SWE-Agents</h3>
+                    <p>
+                        We use the R2E-Gym dataset to train our R2E-Gym-32B agent, a 32B parameter model
+                        based on the Qwen model trained on high-quality trajectories collected on the R2E-Gym dataset.
+                        Our model achieves SOTA - 34.4% Pass@1 performance on the SWE-Bench Verified benchmark.
+
+                    </p>
+                    <br />
+
+                    <div class="columns is-centered">
+                        <div class="column is-8">
+                            <img src="./assets/r2egym/data_size_ablation.png" alt="Data Size Ablation" />
+                            <p class="figure-caption">
+                                <b>Figure 3:</b> Performance scaling with increasing training data volume shows
+                                consistent improvement as more synthetic examples are added, demonstrating that the
+                                SWE-Gen methodology enables more effective scaling than previous approaches.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section fade-in">
+        <div class="container">
+            <div class="columns is-centered">
+                <div class="column is-8">
+                    <h2 class="title is-3">Hybrid Verifiers: Inference-Time Scaling</h2>
+
+                    <p>
+                        We introduce Hybrid Test-time Scaling, a novel paradigm for scaling test-time compute.
+                        We show that while both execution-based and execution-free verifiers elicit inference-time
+                        gains;
+                        they exhibit complementary strengths and weakness.
+                        Leveraging the strengths of each approach allows significantly better performance when scaling
+                        test-time compute - resulting in a 51% pass@1 performance on the SWE-Bench Verified benchmark,
+                        reflecting a new state-of-the-art for open-weight SWE-Agents.
+                        <!-- Even with high-quality training data, SWE-Agents face a critical challenge
+                        at inference time: identifying the best solution among multiple candidates. Our analysis of
+                        verification approaches revealed their complementary nature, leading to our breakthrough hybrid
+                        verification system. -->
+                    </p>
+
+                    <h3 class="title is-4">Execution-Based Verifier Limitations</h3>
+
+                    <div
+                        style="background-color: #f8fafc; border-radius: 12px; border-left: 6px solid #b91c1c; padding: 1.2rem; margin-bottom: 1.5rem;">
+                        <p style="font-weight: 600; margin-bottom: 0.8rem;">While execution-based verifiers provide a
+                            functional evaluation of patch semantics, they face the following challenges:</p>
+
+                        <div style="display: flex; flex-direction: column; gap: 0.8rem;">
+                            <div style="display: flex; align-items: flex-start; gap: 0.8rem;">
+                                <div
+                                    style="background-color: #b91c1c; color: white; padding: 0.4rem; border-radius: 50%; font-size: 0.9rem; display: flex; align-items: center; justify-content: center; min-width: 2rem; height: 2rem;">
+                                    1
+                                </div>
+                                <div>
+                                    <p style="margin: 0; line-height: 1.4;"><strong>Low Distinguishability:</strong>
+                                        Often only 20% of generated tests effectively distinguish between top-ranked
+                                        correct and
+                                        incorrect patches</p>
+                                </div>
+                            </div>
+
+                            <div style="display: flex; align-items: flex-start; gap: 0.8rem;">
+                                <div
+                                    style="background-color: #b91c1c; color: white; padding: 0.4rem; border-radius: 50%; font-size: 0.9rem; display: flex; align-items: center; justify-content: center; min-width: 2rem; height: 2rem;">
+                                    2
+                                </div>
+                                <div>
+                                    <p style="margin: 0; line-height: 1.4;"><strong>Test Toxicity:</strong> Some tests
+                                        pass incorrect patches while failing correct ones, further degrading ranking
+                                        effectiveness</p>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+
+                    <div class="columns is-centered">
+                        <div class="column is-6">
+                            <img src="./assets/r2egym/density_plot_distinguish_32b_sonnet_agentless.png"
+                                alt="Distinguishability Plot" />
+                            <p class="figure-caption">
+                                Distinguishability rates: Most problems have less than 20% of tests providing meaningful
+                                discriminative signals.
+                            </p>
+                        </div>
+                        <div class="column is-6">
+                            <img src="./assets/r2egym/density_plot_toxicity_32b_sonnet_agentless.png"
+                                alt="Toxicity Plot" />
+                            <p class="figure-caption">
+                                Toxicity rates showing rare generation of tests that pass incorrect patches but fail
+                                correct ones.
+                            </p>
+                        </div>
+                    </div>
+
+
+                    <h3 class="title is-4">Execution-Free Verifier Limitations</h3>
+
+                    <div
+                        style="background-color: #f8fafc; border-radius: 12px; border-left: 6px solid #b91c1c; padding: 1.2rem; margin-bottom: 1.5rem;">
+                        <p style="font-weight: 600; margin-bottom: 0.8rem;">Our analysis also reveals limitations
+                            of execution-free verifiers:</p>
+
+                        <div style="display: flex; flex-direction: column; gap: 0.8rem;">
+
+
+                            <div style="display: flex; align-items: flex-start; gap: 0.8rem;">
+                                <div
+                                    style="background-color: #b91c1c; color: white; padding: 0.4rem; border-radius: 50%; font-size: 0.9rem; display: flex; align-items: center; justify-content: center; min-width: 2rem; height: 2rem;">
+                                    1
+                                </div>
+                                <div>
+                                    <p style="margin: 0; line-height: 1.4;"><strong>Trajectories Are Necessary for
+                                            Performance:</strong> Removing trajectory information from verifier inputs
+                                        reduces accuracy by 3-5%, indicating over-reliance on non-patch related signals
+                                    </p>
+                                </div>
+                            </div>
+
+
+
+                            <div style="display: flex; align-items: flex-start; gap: 0.8rem;">
+                                <div
+                                    style="background-color: #b91c1c; color: white; padding: 0.4rem; border-radius: 50%; font-size: 0.9rem; display: flex; align-items: center; justify-content: center; min-width: 2rem; height: 2rem;">
+                                    2
+                                </div>
+                                <div>
+                                    <p style="margin: 0; line-height: 1.4;"><strong>Heuristic Dependency:</strong>
+                                        Verifiers attention patterns show heavy reliance on agent thoughts rather than
+                                        evaluating the actual patch quality</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="columns is-centered">
+                        <div class="column is-12">
+                            <div class="box"
+                                style="background-color: #f8fafc; margin-bottom: 1rem; max-width: 1200px; margin-left: auto; margin-right: auto;">
+                                <div class="columns">
+                                    <div class="column is-6">
+                                        <table class="table is-bordered is-striped is-fullwidth"
+                                            style="background-color: white;">
+                                            <thead>
+                                                <tr>
+                                                    <th style="width: 50%;">Method</th>
+                                                    <th style="width: 25%;">Accuracy (%)</th>
+                                                    <th style="width: 25%;">Best@26 (%)</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr style="background-color: #f5f5f5;">
+                                                    <td>Final Patch + Traj.</td>
+                                                    <td><strong>71.82</strong></td>
+                                                    <td><strong>42.8</strong></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Patch Only</td>
+                                                    <td>68.01</td>
+                                                    <td>37.6</td>
+                                                </tr>
+                                                <tr style="background-color: #f5f5f5;">
+                                                    <td>Traj. - Thoughts</td>
+                                                    <td>68.77</td>
+                                                    <td>41.4</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="column is-6">
+                                        <div
+                                            style="background-color: #f1f5f9; padding: 15px; border-radius: 5px; margin-bottom: 15px;">
+                                            <pre
+                                                style="background-color: #f1f5f9; font-size: 0.85rem; overflow-x: hidden; white-space: pre-wrap;"><span style="background-color: rgba(255, 255, 0, 0.3);">1. Successfully</span> reproduced the issue
+2. Implemented a fix [...]
+4. Ensured edge cases are handled
+5. <span style="background-color: rgba(255, 255, 0, 0.3);">Maintained</span> backward compatibility [...]
+&lt;function=finish&gt;submit&lt;/function&gt; [...]</pre>
+                                        </div>
+                                        <div style="background-color: #f1f5f9; padding: 15px; border-radius: 5px;">
+                                            <pre
+                                                style="background-color: #f1f5f9; font-size: 0.85rem; overflow-x: hidden; white-space: pre-wrap;"><span style="background-color: rgba(255, 255, 0, 0.3);">Great! The fix works.</span> Let's see what we did to fix the issue:
+1. We identified that the original code was failing because it was trying to use the `.inverse()` method directly on permutations, which [...]</pre>
+                                        </div>
+                                    </div>
+                                </div>
+                                <p class="figure-caption" style="margin-top: 0.5rem;">
+                                    <b>Figure 5:</b> Limitations of execution-free verifiers: (Left) Our quantitative
+                                    ablation shows that removing patches or
+                                    thoughts reduces performance, indicating that verifiers rely heavily on heuristics
+                                    beyond just the final code.
+                                    (Right) Example of misleading heuristics where the verifier attends to agent
+                                    thoughts with confident language
+                                    ("Successfully", "Great", "works") when predicting a patch is correct, despite the
+                                    patch being incorrect.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                    <h3 class="title is-4">The Hybrid Advantage</h3>
+
+                    <div
+                        style="background-color: #f8fafc; border-radius: 12px; border-left: 6px solid #9333ea; padding: 1.2rem; margin-bottom: 1.5rem;">
+                        <p style="font-weight: 600; margin-bottom: 0.8rem;">Our hybrid verification approach combines
+                            the complementary strengths of both methods:</p>
+
+                        <div style="display: flex; flex-direction: column; gap: 1.2rem;">
+                            <div style="display: flex; align-items: flex-start; gap: 0.8rem;">
+                                <div
+                                    style="background-color: #9333ea; color: white; padding: 0.4rem; border-radius: 50%; font-size: 0.9rem; display: flex; align-items: center; justify-content: center; min-width: 2rem; height: 2rem;">
+                                    1
+                                </div>
+                                <div>
+                                    <p style="margin: 0 0 0.4rem 0; line-height: 1.4; font-weight: 600;">First-Stage
+                                        Filtering with Execution Testing</p>
+                                    <p style="margin: 0; line-height: 1.4;">Quickly eliminates non-functional solutions
+                                        using binary pass/fail signals, reducing the candidate pool to only working
+                                        solutions</p>
+                                </div>
+                            </div>
+
+                            <div style="display: flex; align-items: flex-start; gap: 0.8rem;">
+                                <div
+                                    style="background-color: #9333ea; color: white; padding: 0.4rem; border-radius: 50%; font-size: 0.9rem; display: flex; align-items: center; justify-content: center; min-width: 2rem; height: 2rem;">
+                                    2
+                                </div>
+                                <div>
+                                    <p style="margin: 0 0 0.4rem 0; line-height: 1.4; font-weight: 600;">Second-Stage
+                                        Ranking with Execution-Free Evaluation</p>
+                                    <p style="margin: 0; line-height: 1.4;">Provides fine-grained continuous scoring
+                                        among solutions that pass execution tests, provided finer disambiguation</p>
+                                </div>
+                            </div>
+
+                            <div style="display: flex; align-items: flex-start; gap: 0.8rem;">
+                                <div
+                                    style="background-color: #9333ea; color: white; padding: 0.4rem; border-radius: 50%; font-size: 0.9rem; display: flex; align-items: center; justify-content: center; min-width: 2rem; height: 2rem;">
+                                    3
+                                </div>
+                                <div>
+                                    <p style="margin: 0 0 0.4rem 0; line-height: 1.4; font-weight: 600;">Complementary
+                                        Strengths, Minimized Weaknesses</p>
+                                    <p style="margin: 0; line-height: 1.4;">Overcomes the binary limitations of
+                                        execution testing and the misleading heuristics problem of execution-free
+                                        evaluation</p>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="columns is-centered" style="margin-top: 2rem;">
+                        <div class="column is-10">
+                            <img src="./assets/r2egym/bestk_plot_agent_nopass.png" alt="Best-k Performance" />
+                            <p class="figure-caption">
+                                <b>Figure 4:</b> Best@K performance with increasing agent rollouts. Our hybrid approach
+                                achieves superior scaling, reaching 51% - a significant 7-8% improvement over either
+                                method alone.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section fade-in">
+        <div class="container">
+            <div class="columns is-centered">
+                <div class="column is-8">
+                    <h2 class="title is-3">Conclusion</h2>
+
+                    <div
+                        style="background-color: #f8fafc; border-radius: 12px; border-left: 6px solid #0284c7; padding: 1.2rem; margin-bottom: 1.5rem; max-width: 1200px; margin-left: auto; margin-right: auto;">
+                        <p style="font-weight: 600; margin-bottom: 0.8rem;">R2E-Gym establishes a new state-of-the-art
+                            for open-weights SWE agents with 51% success rate—a significant improvement over previous
+                            approaches:</p>
+
+                        <div class="columns">
+                            <div class="column is-6">
+                                <div
+                                    style="background-color: white; border-radius: 8px; padding: 1.5rem; height: 100%; border: 1px solid #e2e8f0;">
+                                    <h4
+                                        style="font-weight: 600; color: #0284c7; margin-bottom: 1rem; font-size: 1.1rem;">
+                                        Key Innovation:
+                                        Synthetic Data Pipeline</h4>
+                                    <ul style="margin-left: 1.2rem;">
+                                        <li style="margin-bottom: 0.7rem; font-size: 1rem;">Created 8.1K executable
+                                            training environments
+                                        </li>
+                                        <li style="margin-bottom: 0.7rem; font-size: 1rem;">Eliminated dependency on
+                                            human-written issues
+                                        </li>
+                                        <li style="margin-bottom: 0.7rem; font-size: 1rem;">Enabled 34.4% Pass@1—a 14%
+                                            improvement over
+                                            previous models</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="column is-6">
+                                <div
+                                    style="background-color: white; border-radius: 8px; padding: 1.5rem; height: 100%; border: 1px solid #e2e8f0;">
+                                    <h4
+                                        style="font-weight: 600; color: #0284c7; margin-bottom: 1rem; font-size: 1.1rem;">
+                                        Key Innovation:
+                                        Hybrid Verification</h4>
+                                    <ul style="margin-left: 1.2rem;">
+                                        <li style="margin-bottom: 0.7rem; font-size: 1rem;">Combined execution-based and
+                                            execution-free
+                                            verifiers</li>
+                                        <li style="margin-bottom: 0.7rem; font-size: 1rem;">Required only 26 rollouts
+                                            vs. 500+ in other
+                                            methods</li>
+                                        <li style="margin-bottom: 0.7rem; font-size: 1rem;">Showed competitive
+                                            performance with some
+                                            proprietary models</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <p style="text-align: center; font-weight: 500; font-size: 1.1rem; color: #0284c7;">
+                        Our open-source tools and datasets are available to enable further research and innovation in
+                        this area.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="has-text-centered">
+                <p>
+                    <strong style="color: white;">R2E-Gym:</strong> Procedural Environment Generation and Hybrid
+                    Verifiers for Scaling
+                    Open-Weights SWE Agents
+                </p>
+                <p style="font-size: 0.9rem; margin-top: 0.5rem; opacity: 0.8;">
+                    Last updated: April 2025
+                </p>
+            </div>
+        </div>
+    </footer>
+
+</body>
+
+</html>
