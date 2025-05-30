@@ -4,11 +4,11 @@
 <head>
     <meta charset="utf-8" />
     <meta name="description"
-        content="R2E-Gym: Procedural Environment Generation and Hybrid Verifiers for Scaling Open-Weights SWE Agents" />
+        content="NiT: Native-resolution diffution Transformer for arbitrary resolution generalization" />
     <meta name="keywords"
-        content="R2E-Gym, Large Language Models, LLM, Software Engineering, SWE Agents, Procedural Environment Generation, Hybrid Verifiers" />
+        content="Native-Resolution Modeling, Image Synthesis" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>R2E-Gym: Scaling Open-Weights SWE Agents</title>
+    <title>Native-Resolution Image Synthesis</title>
 
     <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet" />
     <link rel="stylesheet" href="./css/bulma.min.css" />
@@ -24,6 +24,7 @@
     <script defer src="./js/fontawesome.all.min.js"></script>
     <script src="./js/bulma-carousel.min.js"></script>
     <script src="./js/bulma-slider.min.js"></script>
+    <script src="./js/gallery.js"></script>
     <script src="./js/index.js"></script>
 </head>
 
@@ -33,36 +34,32 @@
             <div class="container">
                 <div class="has-text-centered">
                     <h1 class="publication-title">
-                        <span class="dnerf">R2E-Gym</span>
+                        <span class="dnerf">Native-Resolution Image Synthesis</span>
                     </h1>
-                    <h2 class="publication-subtitle">
+                    <!-- <h2 class="publication-subtitle">
                         Procedural Environment Generation and Hybrid Verifiers for Scaling Open-Weights SWE Agents
-                    </h2>
+                    </h2> -->
 
                     <div class="publication-authors">
                         <span class="author-block">
-                            <a href="https://naman-ntc.github.io/">Naman Jain</a><sup>*,1</sup>,</span>
+                            <a href="https://github.com/WZDTHU">Zidong Wang</a><sup>1,2</sup>,</span>
                         <span class="author-block">
-                            <a href="https://1jsingh.github.io/">Jaskirat Singh</a><sup>*,2</sup>,</span>
+                            <a href="http://leibai.site">Lei Bai</a><sup>2,*</sup>,</span>
                         <span class="author-block">
-                            <a href="https://manishs.org/">Manish Shetty</a><sup>1</sup>,</span>
-                        <!-- <span class="author-block">
-                            <a href="https://tianjunz.github.io/">Tianjun Zhang</a><sup>1</sup>,</span> -->
+                            <a href="https://xyue.io">Xiangyu Yue</a><sup>1</sup>,</span>
                         <span class="author-block">
-                            <a href="https://zheng-lab-anu.github.io/">Liang Zheng</a><sup>2</sup>,</span>
+                            <a href="https://wlouyang.github.io">Wanli Ouyang</a><sup>1,2</sup>,</span>
                         <span class="author-block">
-                            <a href="https://people.eecs.berkeley.edu/~ksen">Koushik Sen</a><sup>1</sup>,</span>
-                        <span class="author-block">
-                            <a href="https://people.eecs.berkeley.edu/~istoica/">Ion Stoica</a><sup>1</sup></span>
+                            <a href="https://invictus717.github.io">Yiyuan Zhang</a><sup>1,*</sup>,</span>
                     </div>
 
                     <div class="publication-authors">
-                        <span class="author-block"><sup>1</sup>UC Berkeley</span>
-                        <span class="author-block"><sup>2</sup>Australian National University</span>
+                        <span class="author-block"><sup>1</sup>MMLab CUHK</span>
+                        <span class="author-block"><sup>2</sup>Shanghai AI Lab</span>
                     </div>
 
                     <div style="margin-top: 0.5rem; font-size: 0.9rem; color: var(--text-light);">
-                        <span><sup>*</sup>Equal Contribution,</span>
+                        <span><sup>*</sup>Correspondance</span>
                     </div>
 
                     <div class="publication-links">
@@ -83,7 +80,7 @@
                             </a>
                         </span>
                         <span class="link-block">
-                            <a href="https://github.com/R2E-Gym/R2E-Gym" class="external-link button is-dark">
+                            <a href="https://github.com/WZDTHU/NiT" class="external-link button is-dark">
                                 <span class="icon">
                                     <i class="fab fa-github"></i>
                                 </span>
@@ -91,11 +88,19 @@
                             </a>
                         </span>
                         <span class="link-block">
-                            <a href="https://huggingface.co/R2E-Gym" class="external-link button is-dark">
+                            <a href="https://huggingface.co/datasets/GoodEnough/NiT-Preprocessed-ImageNet1K" class="external-link button is-dark">
                                 <!-- <span class="icon">
                                     <i class="fab fa-github"></i>
                                 </span> -->
-                                <span>🤗 Data & Models</span>
+                                <span>🤗 Dataset</span>
+                            </a>
+                        </span>
+                        <span class="link-block">
+                            <a href="https://huggingface.co/GoodEnough/NiT-Models" class="external-link button is-dark">
+                                <!-- <span class="icon">
+                                    <i class="fab fa-github"></i>
+                                </span> -->
+                                <span>🤗 Models</span>
                             </a>
                         </span>
                     </div>
@@ -107,29 +112,30 @@
     <section class="section fade-in">
         <div class="container">
             <div class="columns is-centered">
+                <div class="column is-8"
+                    style="display: flex; flex-direction: column; justify-content: center;">
+                    <img src="./assets/nit/teaser.pdf" alt="Synthetic Data Generation" />
+                    <p class="figure-caption">
+                        <b>Figure 1:</b> A single NiT model can generate images across diverse, arbitrary
+                        resolutions (from 256x256 to 2048x2048) and aspect ratios (from 1:5 to 3:1).
+                    </p>
+                </div>
+            </div>
+
+            <div class="columns is-centered">
                 <div class="column is-10">
                     <div class="columns is-centered">
-                        <div class="column is-4"
+                        <div class="column is-10"
                             style="display: flex; flex-direction: column; justify-content: center;">
-                            <img src="./assets/r2egym/overview-p1-v10.png" alt="Synthetic Data Generation"
-                                style="object-fit: contain; height: 280px;" />
-                        </div>
-                        <div class="column is-4"
-                            style="display: flex; flex-direction: column; justify-content: center;">
-                            <img src="./assets/r2egym/overview-p2.png" alt="Hybrid Test-time Scaling"
-                                style="object-fit: contain; height: 280px;" />
-                        </div>
-                        <div class="column is-4"
-                            style="display: flex; flex-direction: column; justify-content: center;">
-                            <img src="./assets/r2egym/overview-p3.png" alt="Open-weights SOTA Performance"
-                                style="object-fit: contain; height: 280px;" />
+                            <img src="./assets/nit/comparison.pdf" alt="Synthetic Data Generation"
+                                style="object-fit: contain; height: 320px;" />
                         </div>
                     </div>
                     <p class="figure-caption">
-                        <b>Figure 1:</b> (Left) SWE-Gen creates executable training environments from commits
-                        using automated test generation and backtranslation. (Middle) Our hybrid approach achieves 51%
-                        success rate through complementary strengths of execution-based and execution-free verifiers.
-                        (Right) Our approach establishes a new state-of-the-art for open-weight SWE agents.
+                        <b>Figure 2:</b> (a) ImageNet resolutions are mainly concentrated between 200 to 600 pixels (width/height), 
+                        with sparse data beyond 800 pixels. Despite this, (b) shows our NiT's superior generalization 
+                        to unseen high resolutions (e.g., 1024, 1536), evidenced by significantly lower FID scores. 
+                        (c) further confirms NiT also exhibits the strongest generalization across various aspect ratios.
                     </p>
                 </div>
             </div>
@@ -148,11 +154,12 @@
                                     🔮
                                 </div>
                                 <div>
-                                    <h4 style="font-weight: 600; margin-bottom: 0.2rem; font-size: 1.1rem;">SWE-Gen
-                                        Data
-                                        Engine</h4>
-                                    <p style="margin: 0; line-height: 1.4;">Generates 8.1K executable environments
-                                        directly from commits with automated tests and natural language descriptions
+                                    <h4 style="font-weight: 600; margin-bottom: 0.2rem; font-size: 1.1rem;">
+                                        New visual generative paradigm
+                                    </h4>
+                                    <p style="margin: 0; line-height: 1.4;">
+                                        Introduce native-resolution image synthesis, a novel generative modeling 
+                                        paradigm capable of synthesizing images at arbitrary resolutions and aspect ratios.
                                     </p>
                                 </div>
                             </div>
@@ -163,10 +170,13 @@
                                     🔍
                                 </div>
                                 <div>
-                                    <h4 style="font-weight: 600; margin-bottom: 0.2rem; font-size: 1.1rem;">Hybrid
-                                        Verification System</h4>
-                                    <p style="margin: 0; line-height: 1.4;">Combines execution-based testing with
-                                        execution-free verification for superior solution ranking</p>
+                                    <h4 style="font-weight: 600; margin-bottom: 0.2rem; font-size: 1.1rem;">
+                                        Native-resolution Modeling Architecture
+                                    </h4>
+                                    <p style="margin: 0; line-height: 1.4;">
+                                        Propose Native-resolution diffusion Transformer (NiT), an architecture designed for 
+                                        explicitly modeling varying resolutions and aspect ratios within its denoising process.
+                                    </p>
                                 </div>
                             </div>
 
@@ -176,11 +186,13 @@
                                     🏆
                                 </div>
                                 <div>
-                                    <h4 style="font-weight: 600; margin-bottom: 0.2rem; font-size: 1.1rem;">SOTA
-                                        Performance</h4>
-                                    <p style="margin: 0; line-height: 1.4;">51% success rate on SWE-Bench with just
-                                        26
-                                        rollouts — 19% higher than previous open-weight models</p>
+                                    <h4 style="font-weight: 600; margin-bottom: 0.2rem; font-size: 1.1rem;">
+                                        State-of-the-art Performance
+                                    </h4>
+                                    <p style="margin: 0; line-height: 1.4;">
+                                        A single NiT model simultaneously achieves the SOTA performance on both ImageNet-256x256 (2.06 FID) and 512x512 (<b>1.48 FID</b>) benchmarks.
+                                        NiT highlights its strong zero-shot generalization ability (e.g., 4.52 FID on unseen 1024x1024 resolution). 
+                                    </p>
                                 </div>
                             </div>
                         </div>
@@ -189,6 +201,65 @@
             </div>
         </div>
     </section>
+
+
+    <section class="section fade-in">
+        <div class="container">
+            <div class="columns is-centered">
+                <div class="column is-12">
+                    <h2 class="title is-3">Qualitative Showcase</h2>
+                    <div class="horizontal-image-gallery">
+                        <button class="gallery-arrow prev-arrow" aria-label="上一组图片">&lt;</button>
+                        <div class="gallery-viewport">
+                            <div class="gallery-track">
+                                <div class="gallery-item">
+                                    <img src="./assets/visualization/visualization_1.pdf" alt="图片1">
+                                    <p class="gallery-item-caption">Class-33</p>
+                                </div>
+                                <div class="gallery-item">
+                                    <img src="./assets/visualization/visualization_2.pdf" alt="图片2">
+                                    <p class="gallery-item-caption">Class-88</p>
+                                </div>
+                                <div class="gallery-item">
+                                    <img src="./assets/visualization/visualization_3.pdf" alt="图片3">
+                                    <p class="gallery-item-caption">Class-250</p>
+                                </div>
+                                <div class="gallery-item">
+                                    <img src="./assets/visualization/visualization_4.pdf" alt="图片4">
+                                    <p class="gallery-item-caption">Class-279</p>
+                                </div>
+                                <div class="gallery-item">
+                                    <img src="./assets/visualization/visualization_5.pdf" alt="图片5">
+                                    <p class="gallery-item-caption">Class-388</p>
+                                </div>
+                                <div class="gallery-item">
+                                    <img src="./assets/visualization/visualization_6.pdf" alt="图片6">
+                                    <p class="gallery-item-caption">Class-417</p>
+                                </div>
+                                <div class="gallery-item">
+                                    <img src="./assets/visualization/visualization_7.pdf" alt="图片7">
+                                    <p class="gallery-item-caption">Class-437</p>
+                                </div>
+                                <div class="gallery-item">
+                                    <img src="./assets/visualization/visualization_8.pdf" alt="图片8">
+                                    <p class="gallery-item-caption">Class-812</p>
+                                </div>
+                                <div class="gallery-item">
+                                    <img src="./assets/visualization/visualization_9.pdf" alt="图片8">
+                                    <p class="gallery-item-caption">Class-980</p>
+                                </div><div class="gallery-item">
+                                    <img src="./assets/visualization/visualization_10.pdf" alt="图片8">
+                                    <p class="gallery-item-caption">Class-985</p>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="gallery-arrow next-arrow" aria-label="下一组图片">&gt;</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+        
 
     <section class="section fade-in">
         <div class="container">
@@ -197,21 +268,20 @@
                     <h2 class="title is-3">Introduction</h2>
                     <div class="content">
                         <p>
-                            Autonomous software engineering (SWE) has made remarkable progress in solving real-world
-                            programming challenges. While LLM-based SWE agents have demonstrated impressive
-                            capabilities, current state-of-the-art performance is predominantly achieved by proprietary
-                            models, with open-source alternatives lagging significantly behind.
-                            Closing this performance gap requires addressing two core challenges: <b>First</b>, we need
-                            scalable methods to curate diverse, high-quality execution environments for training.
-                            <b>Second</b>, we need efficient strategies for scaling test-time compute.
+                            Large Language Models (LLMs) effectively process variable-length text by training directly on native data formats.
+                            This inherent adaptability inspires a critical question for image synthesis: 
+                            <b>Can diffusion models achieve similar flexibility, learning to generate images directly at their diverse, native resolutions and aspect ratios?</b> 
+                            Conventional diffusion models exhibit significant challenges in generalizing across resolutions beyond their training regime. 
+                            This limitation stems from three core difficulties: 
+                            (1) Strong coupling between fixed receptive fields in convolutional architectures and learned feature scales.
+                            (2) Fragility of positional encoding and spatial coordinate dependencies in transformer architectures.
+                            (3) Inefficient and Unstable Training Dynamics from Variable Inputs.
                         </p>
 
                         <p>
-                            R2E-Gym addresses these challenges as the largest procedurally generated environment for
-                            training real-world SWE agents—comprising over 8.1K problems with executable environments
-                            and problem statements through our SWE-Gen pipeline. Next, we introduce a hybrid verifiers
-                            that combines the strengths of execution-based and execution-free verification methods,
-                            enabling significantly better performance at test time.
+                            We overcome these limitations by proposing a novel architecture for diffusion transformers that directly models native-resolution image data for generation. 
+                            Drawing inspiration from the variable-sequence nature of Vision Transformers, we reformulate image generative modeling within diffusion transformers as "native-resolution generation".
+                            And we present the Native-resolution diffusion Transformer (NiT), which demonstrates the capability to generate images across a wide spectrum of resolutions and aspect ratios. 
                         </p>
                     </div>
                 </div>
@@ -223,14 +293,13 @@
         <div class="container">
             <div class="columns is-centered">
                 <div class="column is-8">
-                    <h2 class="title is-3">R2E-Gym: Procedural Synthetic Data Generation</h2>
-
-                    <h3 class="title is-4">The SWE-Gen Approach</h3>
+                    <h2 class="title is-3">NiT: Native-resolution diffusion Transformer</h2>
 
                     <div
                         style="background-color: #f8fafc; border-radius: 12px; border-left: 6px solid #047857; padding: 1.2rem; margin-bottom: 1.5rem;">
-                        <p style="font-weight: 600; margin-bottom: 0.8rem;">SWE-Gen breaks traditional dependencies on
-                            human-written issues through a novel synthetic data pipeline:</p>
+                        <p style="font-weight: 600; margin-bottom: 0.8rem;">
+                            NiT introduces three key architectural innovations
+                        </p>
 
                         <div style="display: flex; flex-direction: column; gap: 0.8rem;">
 
@@ -240,9 +309,10 @@
                                     1
                                 </div>
                                 <div>
-                                    <p style="margin: 0; line-height: 1.4;"><strong>Automated Test Generation:</strong>
-                                        Creates reproduction tests that validate patch correctness in cases where humans
-                                        don't provide one</p>
+                                    <p style="margin: 0; line-height: 1.4;"><strong>Dynamic Tokenization:</strong>
+                                        Converts images in native resolution into variable-length token sequences and the tuples of corresponding height and width. 
+                                        Without requiring input padding, it avoids substantial computational overhead.
+                                    </p>
                                 </div>
                             </div>
 
@@ -252,9 +322,10 @@
                                     2
                                 </div>
                                 <div>
-                                    <p style="margin: 0; line-height: 1.4;"><strong>Issue Generation:</strong> Converts
-                                        code changes into natural language problem statements using execution assisted
-                                        back-translation for agent training</p>
+                                    <p style="margin: 0; line-height: 1.4;"><strong>Variable-Length Sequence Processing:</strong> 
+                                        We use Flash Attention to natively process heterogeneous, unpadded token sequences by 
+                                        cumulative sequence lengths using the memory tiling strategy.
+                                    </p>
                                 </div>
                             </div>
 
@@ -264,9 +335,10 @@
                                     3
                                 </div>
                                 <div>
-                                    <p style="margin: 0; line-height: 1.4;"><strong>Executable Environments:</strong>
-                                        Released over 8.1K unique tasks across 13 repositories with pre-built docker
-                                        images </p>
+                                    <p style="margin: 0; line-height: 1.4;"><strong>2D Structural Prior Injection:</strong>
+                                        We introduce the axial 2D Rotary Positional Embedding to factorize the height and width impact 
+                                        and maximize the 2D structural prior by relative positional encoding. 
+                                    </p>
                                 </div>
                             </div>
                         </div>
@@ -275,50 +347,17 @@
                     <div class="columns is-centered">
                         <div class="column is-12">
                             <div class="columns is-centered">
-                                <div class="column is-6"
+                                <div class="column is-12"
                                     style="display: flex; flex-direction: column; justify-content: center;">
-                                    <img src="./assets/r2egym/r2e_gym_repo_distribution.png"
-                                        alt="Complete Dataset Distribution"
-                                        style="object-fit: contain; height: 280px;" />
-                                    <p class="figure-caption" style="margin-top: 1rem;">
-                                        Complete dataset distribution
-                                    </p>
-                                </div>
-                                <div class="column is-6"
-                                    style="display: flex; flex-direction: column; justify-content: center;">
-                                    <img src="./assets/r2egym/r2e_gym_subset_repo_distribution.png"
-                                        alt="Subset Dataset Distribution" style="object-fit: contain; height: 280px;" />
-                                    <p class="figure-caption" style="margin-top: 1rem;">
-                                        Subset (non overlapping with SWE-Bench) dataset distribution
-                                    </p>
+                                    <img src="./assets/nit/framework.pdf" alt="Synthetic Data Generation"/>
                                 </div>
                             </div>
-                            <p class="figure-caption">
-                                <b>Figure 2:</b> Dataset composition showing the diversity of repositories
+                            <!-- <p class="figure-caption">
+                                <b>Figure 3:</b> Dataset composition showing the diversity of repositories
                                 and problems in our synthetic dataset, enabling significantly larger and more diverse
                                 training environments than previous methods. Left: Full R2E-Gym dataset. Right:
                                 R2E-Gym subset (non-overlapping with SWE-Bench) used for training.
-                            </p>
-                        </div>
-                    </div>
-
-                    <h3 class="title is-4">Training SWE-Agents</h3>
-                    <p>
-                        We use the R2E-Gym dataset to train our R2E-Gym-32B agent, a 32B parameter model
-                        based on the Qwen model trained on high-quality trajectories collected on the R2E-Gym dataset.
-                        Our model achieves SOTA - 34.4% Pass@1 performance on the SWE-Bench Verified benchmark.
-
-                    </p>
-                    <br />
-
-                    <div class="columns is-centered">
-                        <div class="column is-8">
-                            <img src="./assets/r2egym/data_size_ablation.png" alt="Data Size Ablation" />
-                            <p class="figure-caption">
-                                <b>Figure 3:</b> Performance scaling with increasing training data volume shows
-                                consistent improvement as more synthetic examples are added, demonstrating that the
-                                SWE-Gen methodology enables more effective scaling than previous approaches.
-                            </p>
+                            </p> -->
                         </div>
                     </div>
                 </div>
@@ -330,327 +369,82 @@
         <div class="container">
             <div class="columns is-centered">
                 <div class="column is-8">
-                    <h2 class="title is-3">Hybrid Verifiers: Inference-Time Scaling</h2>
-
-                    <p>
-                        We introduce Hybrid Test-time Scaling, a novel paradigm for scaling test-time compute.
-                        We show that while both execution-based and execution-free verifiers elicit inference-time
-                        gains;
-                        they exhibit complementary strengths and weakness.
-                        Leveraging the strengths of each approach allows significantly better performance when scaling
-                        test-time compute - resulting in a 51% pass@1 performance on the SWE-Bench Verified benchmark,
-                        reflecting a new state-of-the-art for open-weight SWE-Agents.
-                        <!-- Even with high-quality training data, SWE-Agents face a critical challenge
-                        at inference time: identifying the best solution among multiple candidates. Our analysis of
-                        verification approaches revealed their complementary nature, leading to our breakthrough hybrid
-                        verification system. -->
-                    </p>
-
-                    <h3 class="title is-4">Execution-Based Verifier Limitations</h3>
-
-                    <div
-                        style="background-color: #f8fafc; border-radius: 12px; border-left: 6px solid #b91c1c; padding: 1.2rem; margin-bottom: 1.5rem;">
-                        <p style="font-weight: 600; margin-bottom: 0.8rem;">While execution-based verifiers provide a
-                            functional evaluation of patch semantics, they face the following challenges:</p>
-
-                        <div style="display: flex; flex-direction: column; gap: 0.8rem;">
-                            <div style="display: flex; align-items: flex-start; gap: 0.8rem;">
-                                <div
-                                    style="background-color: #b91c1c; color: white; padding: 0.4rem; border-radius: 50%; font-size: 0.9rem; display: flex; align-items: center; justify-content: center; min-width: 2rem; height: 2rem;">
-                                    1
-                                </div>
-                                <div>
-                                    <p style="margin: 0; line-height: 1.4;"><strong>Low Distinguishability:</strong>
-                                        Often only 20% of generated tests effectively distinguish between top-ranked
-                                        correct and
-                                        incorrect patches</p>
-                                </div>
-                            </div>
-
-                            <div style="display: flex; align-items: flex-start; gap: 0.8rem;">
-                                <div
-                                    style="background-color: #b91c1c; color: white; padding: 0.4rem; border-radius: 50%; font-size: 0.9rem; display: flex; align-items: center; justify-content: center; min-width: 2rem; height: 2rem;">
-                                    2
-                                </div>
-                                <div>
-                                    <p style="margin: 0; line-height: 1.4;"><strong>Test Toxicity:</strong> Some tests
-                                        pass incorrect patches while failing correct ones, further degrading ranking
-                                        effectiveness</p>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-
-
-                    <div class="columns is-centered">
-                        <div class="column is-6">
-                            <img src="./assets/r2egym/density_plot_distinguish_32b_sonnet_agentless.png"
-                                alt="Distinguishability Plot" />
-                            <p class="figure-caption">
-                                Distinguishability rates: Most problems have less than 20% of tests providing meaningful
-                                discriminative signals.
-                            </p>
-                        </div>
-                        <div class="column is-6">
-                            <img src="./assets/r2egym/density_plot_toxicity_32b_sonnet_agentless.png"
-                                alt="Toxicity Plot" />
-                            <p class="figure-caption">
-                                Toxicity rates showing rare generation of tests that pass incorrect patches but fail
-                                correct ones.
-                            </p>
-                        </div>
-                    </div>
-
-
-                    <h3 class="title is-4">Execution-Free Verifier Limitations</h3>
-
-                    <div
-                        style="background-color: #f8fafc; border-radius: 12px; border-left: 6px solid #b91c1c; padding: 1.2rem; margin-bottom: 1.5rem;">
-                        <p style="font-weight: 600; margin-bottom: 0.8rem;">Our analysis also reveals limitations
-                            of execution-free verifiers:</p>
-
-                        <div style="display: flex; flex-direction: column; gap: 0.8rem;">
-
-
-                            <div style="display: flex; align-items: flex-start; gap: 0.8rem;">
-                                <div
-                                    style="background-color: #b91c1c; color: white; padding: 0.4rem; border-radius: 50%; font-size: 0.9rem; display: flex; align-items: center; justify-content: center; min-width: 2rem; height: 2rem;">
-                                    1
-                                </div>
-                                <div>
-                                    <p style="margin: 0; line-height: 1.4;"><strong>Trajectories Are Necessary for
-                                            Performance:</strong> Removing trajectory information from verifier inputs
-                                        reduces accuracy by 3-5%, indicating over-reliance on non-patch related signals
-                                    </p>
-                                </div>
-                            </div>
-
-
-
-                            <div style="display: flex; align-items: flex-start; gap: 0.8rem;">
-                                <div
-                                    style="background-color: #b91c1c; color: white; padding: 0.4rem; border-radius: 50%; font-size: 0.9rem; display: flex; align-items: center; justify-content: center; min-width: 2rem; height: 2rem;">
-                                    2
-                                </div>
-                                <div>
-                                    <p style="margin: 0; line-height: 1.4;"><strong>Heuristic Dependency:</strong>
-                                        Verifiers attention patterns show heavy reliance on agent thoughts rather than
-                                        evaluating the actual patch quality</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <h2 class="title is-3">Experiments</h2>
+                    <h3 class="title is-4">NiT improves training efficiency and generation quality</h3>
 
                     <div class="columns is-centered">
                         <div class="column is-12">
-                            <div class="box"
-                                style="background-color: #f8fafc; margin-bottom: 1rem; max-width: 1200px; margin-left: auto; margin-right: auto;">
-                                <div class="columns">
-                                    <div class="column is-6">
-                                        <table class="table is-bordered is-striped is-fullwidth"
-                                            style="background-color: white;">
-                                            <thead>
-                                                <tr>
-                                                    <th style="width: 50%;">Method</th>
-                                                    <th style="width: 25%;">Accuracy (%)</th>
-                                                    <th style="width: 25%;">Best@26 (%)</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr style="background-color: #f5f5f5;">
-                                                    <td>Final Patch + Traj.</td>
-                                                    <td><strong>71.82</strong></td>
-                                                    <td><strong>42.8</strong></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Patch Only</td>
-                                                    <td>68.01</td>
-                                                    <td>37.6</td>
-                                                </tr>
-                                                <tr style="background-color: #f5f5f5;">
-                                                    <td>Traj. - Thoughts</td>
-                                                    <td>68.77</td>
-                                                    <td>41.4</td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                    <div class="column is-6">
-                                        <div
-                                            style="background-color: #f1f5f9; padding: 15px; border-radius: 5px; margin-bottom: 15px;">
-                                            <pre
-                                                style="background-color: #f1f5f9; font-size: 0.85rem; overflow-x: hidden; white-space: pre-wrap;"><span style="background-color: rgba(255, 255, 0, 0.3);">1. Successfully</span> reproduced the issue
-2. Implemented a fix [...]
-4. Ensured edge cases are handled
-5. <span style="background-color: rgba(255, 255, 0, 0.3);">Maintained</span> backward compatibility [...]
-&lt;function=finish&gt;submit&lt;/function&gt; [...]</pre>
-                                        </div>
-                                        <div style="background-color: #f1f5f9; padding: 15px; border-radius: 5px;">
-                                            <pre
-                                                style="background-color: #f1f5f9; font-size: 0.85rem; overflow-x: hidden; white-space: pre-wrap;"><span style="background-color: rgba(255, 255, 0, 0.3);">Great! The fix works.</span> Let's see what we did to fix the issue:
-1. We identified that the original code was failing because it was trying to use the `.inverse()` method directly on permutations, which [...]</pre>
-                                        </div>
-                                    </div>
-                                </div>
-                                <p class="figure-caption" style="margin-top: 0.5rem;">
-                                    <b>Figure 5:</b> Limitations of execution-free verifiers: (Left) Our quantitative
-                                    ablation shows that removing patches or
-                                    thoughts reduces performance, indicating that verifiers rely heavily on heuristics
-                                    beyond just the final code.
-                                    (Right) Example of misleading heuristics where the verifier attends to agent
-                                    thoughts with confident language
-                                    ("Successfully", "Great", "works") when predicting a patch is correct, despite the
-                                    patch being incorrect.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-
-
-
-                    <h3 class="title is-4">The Hybrid Advantage</h3>
-
-                    <div
-                        style="background-color: #f8fafc; border-radius: 12px; border-left: 6px solid #9333ea; padding: 1.2rem; margin-bottom: 1.5rem;">
-                        <p style="font-weight: 600; margin-bottom: 0.8rem;">Our hybrid verification approach combines
-                            the complementary strengths of both methods:</p>
-
-                        <div style="display: flex; flex-direction: column; gap: 1.2rem;">
-                            <div style="display: flex; align-items: flex-start; gap: 0.8rem;">
-                                <div
-                                    style="background-color: #9333ea; color: white; padding: 0.4rem; border-radius: 50%; font-size: 0.9rem; display: flex; align-items: center; justify-content: center; min-width: 2rem; height: 2rem;">
-                                    1
-                                </div>
-                                <div>
-                                    <p style="margin: 0 0 0.4rem 0; line-height: 1.4; font-weight: 600;">First-Stage
-                                        Filtering with Execution Testing</p>
-                                    <p style="margin: 0; line-height: 1.4;">Quickly eliminates non-functional solutions
-                                        using binary pass/fail signals, reducing the candidate pool to only working
-                                        solutions</p>
-                                </div>
-                            </div>
-
-                            <div style="display: flex; align-items: flex-start; gap: 0.8rem;">
-                                <div
-                                    style="background-color: #9333ea; color: white; padding: 0.4rem; border-radius: 50%; font-size: 0.9rem; display: flex; align-items: center; justify-content: center; min-width: 2rem; height: 2rem;">
-                                    2
-                                </div>
-                                <div>
-                                    <p style="margin: 0 0 0.4rem 0; line-height: 1.4; font-weight: 600;">Second-Stage
-                                        Ranking with Execution-Free Evaluation</p>
-                                    <p style="margin: 0; line-height: 1.4;">Provides fine-grained continuous scoring
-                                        among solutions that pass execution tests, provided finer disambiguation</p>
-                                </div>
-                            </div>
-
-                            <div style="display: flex; align-items: flex-start; gap: 0.8rem;">
-                                <div
-                                    style="background-color: #9333ea; color: white; padding: 0.4rem; border-radius: 50%; font-size: 0.9rem; display: flex; align-items: center; justify-content: center; min-width: 2rem; height: 2rem;">
-                                    3
-                                </div>
-                                <div>
-                                    <p style="margin: 0 0 0.4rem 0; line-height: 1.4; font-weight: 600;">Complementary
-                                        Strengths, Minimized Weaknesses</p>
-                                    <p style="margin: 0; line-height: 1.4;">Overcomes the binary limitations of
-                                        execution testing and the misleading heuristics problem of execution-free
-                                        evaluation</p>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-
-                    <div class="columns is-centered" style="margin-top: 2rem;">
-                        <div class="column is-10">
-                            <img src="./assets/r2egym/bestk_plot_agent_nopass.png" alt="Best-k Performance" />
+                            <img src="./assets/nit/in1k_main.png"
+                                alt="Distinguishability Plot" />
                             <p class="figure-caption">
-                                <b>Figure 4:</b> Best@K performance with increasing agent rollouts. Our hybrid approach
-                                achieves superior scaling, reaching 51% - a significant 7-8% improvement over either
-                                method alone.
+                                <b>A single NiT model can compete on both two benchmarks.</b>
+                                All these baselines are resolution-expert methods, independently training two models for the two benchmarks. 
+                                To the best of our knowledge, this is the first time <b>a single model</b> can compete on these two benchmarks simultaneously.
+                                NiT-XL achieves the best FID 1.48 on the 512x512 benchmark, outperforming the previous SOTA EDM2-XXL with half of the model size.
+                                On the 256x256 benchmark, our model surpasses the DiT-XL and FiTv2-XL models on FID with the same model size as well as outperforms the LlamaGen-3B model with much smaller parameters.
                             </p>
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>
-    </section>
 
-    <section class="section fade-in">
-        <div class="container">
-            <div class="columns is-centered">
-                <div class="column is-8">
-                    <h2 class="title is-3">Conclusion</h2>
 
-                    <div
-                        style="background-color: #f8fafc; border-radius: 12px; border-left: 6px solid #0284c7; padding: 1.2rem; margin-bottom: 1.5rem; max-width: 1200px; margin-left: auto; margin-right: auto;">
-                        <p style="font-weight: 600; margin-bottom: 0.8rem;">R2E-Gym establishes a new state-of-the-art
-                            for open-weights SWE agents with 51% success rate—a significant improvement over previous
-                            approaches:</p>
+                    <h3 class="title is-4">NiT improves generalization across diverse resolutions and aspect ratios</h3>
 
-                        <div class="columns">
-                            <div class="column is-6">
-                                <div
-                                    style="background-color: white; border-radius: 8px; padding: 1.5rem; height: 100%; border: 1px solid #e2e8f0;">
-                                    <h4
-                                        style="font-weight: 600; color: #0284c7; margin-bottom: 1rem; font-size: 1.1rem;">
-                                        Key Innovation:
-                                        Synthetic Data Pipeline</h4>
-                                    <ul style="margin-left: 1.2rem;">
-                                        <li style="margin-bottom: 0.7rem; font-size: 1rem;">Created 8.1K executable
-                                            training environments
-                                        </li>
-                                        <li style="margin-bottom: 0.7rem; font-size: 1rem;">Eliminated dependency on
-                                            human-written issues
-                                        </li>
-                                        <li style="margin-bottom: 0.7rem; font-size: 1rem;">Enabled 34.4% Pass@1—a 14%
-                                            improvement over
-                                            previous models</li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="column is-6">
-                                <div
-                                    style="background-color: white; border-radius: 8px; padding: 1.5rem; height: 100%; border: 1px solid #e2e8f0;">
-                                    <h4
-                                        style="font-weight: 600; color: #0284c7; margin-bottom: 1rem; font-size: 1.1rem;">
-                                        Key Innovation:
-                                        Hybrid Verification</h4>
-                                    <ul style="margin-left: 1.2rem;">
-                                        <li style="margin-bottom: 0.7rem; font-size: 1rem;">Combined execution-based and
-                                            execution-free
-                                            verifiers</li>
-                                        <li style="margin-bottom: 0.7rem; font-size: 1rem;">Required only 26 rollouts
-                                            vs. 500+ in other
-                                            methods</li>
-                                        <li style="margin-bottom: 0.7rem; font-size: 1rem;">Showed competitive
-                                            performance with some
-                                            proprietary models</li>
-                                    </ul>
-                                </div>
-                            </div>
+                    <div class="columns is-centered">
+                        <div class="column is-12">
+                            <img src="./assets/nit/resolution_generalization.png"
+                                alt="Distinguishability Plot" />
+                            <p class="figure-caption">
+                                NiT-XL significantly surpasses all the baselines on resolution generalization. 
+                                Remarkably, NiT-XL demonstrates almost no performance degradation when scaling to unseen higher resolutions. 
+                            </p>
+                        </div>
+                    </div>
+                    <div class="columns is-centered">
+                        <div class="column is-12">
+                            <img src="./assets/nit/aspect_ratio_generalization.png"
+                                alt="Distinguishability Plot" />
+                            <p class="figure-caption">
+                                NiT-XL can generalize to arbitrary aspect ratios, greatly outperforming all the baselines.
+                            </p>
                         </div>
                     </div>
 
-                    <p style="text-align: center; font-weight: 500; font-size: 1.1rem; color: #0284c7;">
-                        Our open-source tools and datasets are available to enable further research and innovation in
-                        this area.
-                    </p>
-                </div>
+
+                    
             </div>
         </div>
     </section>
+
+    
+
+
+    <!--BibTex citation -->
+    <section class="section" id="BibTeX">
+        <div class="container is-max-desktop content">
+        <h2 class="title">BibTeX</h2>
+        If you find our work useful, please cite our paper. BibTex code is provided below:
+        <pre><code>
+@article{han2023onellm,
+    title={OneLLM: One Framework to Align All Modalities with Language}, 
+    author={Han, Jiaming and Gong, Kaixiong and Zhang, Yiyuan and Wang, jiaqi and Zhang, Kaipeng and Lin, Dahua and Qiao, Yu and Gao, Peng and Yue, Xiangyu},
+    year={2023},
+    eprint={2312.03700},
+    archivePrefix={arXiv},
+    primaryClass={cs.CV}
+}
+        </code></pre>
+        </div>
+    </section>
+    <!--End BibTex citation -->
 
     <footer class="footer">
         <div class="container">
             <div class="has-text-centered">
                 <p>
-                    <strong style="color: white;">R2E-Gym:</strong> Procedural Environment Generation and Hybrid
-                    Verifiers for Scaling
-                    Open-Weights SWE Agents
+                    <strong style="color: white;">Native-Resolution Image Synthesis:</strong>
                 </p>
                 <p style="font-size: 0.9rem; margin-top: 0.5rem; opacity: 0.8;">
-                    Last updated: April 2025
+                    Last updated: June 2025
                 </p>
             </div>
         </div>

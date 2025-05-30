@@ -1,2 +1,1 @@
-# NiT
-Native-resolution diffusion Transformer
+# r2e-gym.github.io

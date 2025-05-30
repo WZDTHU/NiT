@@ -22,6 +22,92 @@ body {
   padding: 0;
 }
 
+.horizontal-image-gallery {
+  display: flex;
+  align-items: center; /* 垂直居中箭头和视口 */
+  position: relative; /* 用于箭头定位 */
+  width: 90%;
+  max-width: 1130px; /* Gallery 的最大宽度，可以根据需要调整 */
+  margin: 20px auto; /* 页面居中 */
+  background-color: #fff;
+  padding: 10px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.gallery-viewport {
+  width: 100%; /* 视口宽度，根据父容器调整 */
+  overflow: hidden; /* 关键：隐藏超出视口的内容 */
+  margin: 0 10px; /* 给箭头留出空间 */
+}
+
+.gallery-track {
+  display: flex; /* 让图片项水平排列 */
+  transition: transform 0.5s ease-in-out; /* 平滑滚动动画 */
+  /* gallery-track 的宽度会由 JS 根据图片数量和宽度动态计算，或者通过 flex 自动撑开 */
+}
+
+.gallery-item {
+  flex: 0 0 auto; /* 防止图片项被压缩或拉伸 */
+  width: 1000px; /* 单个图片项的宽度 (包含 padding/margin) */
+  margin-right: 15px; /* 图片项之间的间距 */
+  text-align: center;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  padding: 8px;
+  box-sizing: border-box; /* padding 和 border 不会增加宽度 */
+}
+
+.gallery-item:last-child {
+  margin-right: 0; /* 最后一个图片项不需要右边距 */
+}
+
+.gallery-item img {
+  width: 100%; /* 图片宽度充满其容器 */
+  height: 500px; /* 图片固定高度 */
+  object-fit: cover; /* 保持图片比例，裁剪多余部分 */
+  border-radius: 4px;
+  display: block; /* 消除图片底部的空白 */
+  margin-bottom: 5px;
+}
+
+.gallery-item-caption {
+  font-size: 0.8em;
+  color: #555;
+  margin-top: 5px;
+  white-space: nowrap; /* 防止标题换行 */
+  overflow: hidden; /* 隐藏过长标题 */
+  text-overflow: ellipsis; /* 过长标题显示省略号 */
+}
+
+.gallery-arrow {
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  border: none;
+  padding: 10px 12px;
+  font-size: 20px;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 50%; /* 圆形按钮 */
+  z-index: 10;
+  transition: background-color 0.3s ease;
+  line-height: 1; /* 确保文字垂直居中 */
+  display: flex; /* 用于居中箭头符号 */
+  align-items: center;
+  justify-content: center;
+}
+
+.gallery-arrow:hover {
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+.gallery-arrow:disabled {
+  background-color: rgba(0, 0, 0, 0.2);
+  cursor: not-allowed;
+}
+
+
 h1, h2, h3, h4, h5, h6 {
   font-family: 'Space Grotesk', sans-serif;
   font-weight: 600;
