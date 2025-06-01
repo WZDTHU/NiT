@@ -172,3 +172,12 @@ cython_debug/
 
 # PyPI configuration file
 .pypirc
+
+*.json
+*.png 
+*.jpg
+/checkpoints
+/workdir
+/datasets
+/wandb
+/samples
