@@ -1,7 +1,7 @@
 <h1 align="center"> Native-Resolution Image Synthesis</h1>
 
-
-[![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/representation-alignment-for-generation/image-generation-on-imagenet-256x256)](https://paperswithcode.com/sota/image-generation-on-imagenet-256x256?p=representation-alignment-for-generation)
+<!-- 
+[![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/representation-alignment-for-generation/image-generation-on-imagenet-256x256)](https://paperswithcode.com/sota/image-generation-on-imagenet-256x256?p=representation-alignment-for-generation) -->
 
 
 
@@ -20,8 +20,8 @@
   <sup>*</sup>Correspondance &emsp; <br>
 </div>
 <h3 align="center">
-[<a href="https://sihyun.me/REPA">project page</a>]&emsp;
-[<a href="http://arxiv.org/abs/2410.06940">arXiv</a>]&emsp;
+[<a href="https://wzdthu.github.io/NiT">project page</a>]&emsp;
+[<a href="">arXiv</a>]&emsp;
 [<a href="https://huggingface.co/datasets/GoodEnough/NiT-Preprocessed-ImageNet1K">Dataset</a>]&emsp;
 [<a href="https://huggingface.co/GoodEnough/NiT-Models">Model</a>]&emsp;
 
@@ -29,11 +29,18 @@
 <br>
 
 
-<b>Summary</b>: We propose Native-resolution diffusion Transformer (NiT), a model that explicitly learns varing resolutions and aspect ratios within its denoising process. This significantly improves training efficiency and generalization capability. To the best of our knowledge, <b>NiT firstly attains SOTA results on both $256\times256$ ($2.08$ FID) and $512\times512$ ($1.48$ FID) benchmarks</b> in class-guided ImageNet generation. NiT can also generalizes to arbitrary resolutions and aspect ratios, such as $4.52$ FID on $1024\times1024$ resolution, $4.11$ FID on $432\times768$ resolution.
+<b>Summary</b>: We propose Native-resolution diffusion Transformer (NiT), a model that explicitly learns varing resolutions and aspect ratios within its denoising process. This significantly improves training efficiency and generalization capability. To the best of our knowledge, <b>NiT firstly attains SOTA results on both</b> $256\times256$ ($2.08$ <b>FID</b>) <b>and</b> $512\times512$ ($1.48$ <b>FID</b>) <b>benchmarks in class-guided ImageNet generation</b>. NiT can also generalizes to arbitrary resolutions and aspect ratios, such as $4.52$ FID on $1024\times1024$ resolution, $4.11$ FID on $432\times768$ resolution.
 
 
 ![Figure](./assets/teaser.png)
 
+# 🚨 News
+
+### [NEWS] [2025-6-3] 🍺 All the pretrained models are now available in hugging face!
+
+### [NEWS] [2025-6-2] 🍺 All the codes are now available in the official repo!
+
+### [NEWS] [2025-5-31] 🍺 Release the [preprocessed dataset](https://huggingface.co/datasets/GoodEnough/NiT-Preprocessed-ImageNet1K)!
 
 # 1. Setup
 
@@ -59,14 +66,17 @@ pip install -e .
 
 With a single model, NiT-XL can compete on multiple benchmarks and it achieves a dual SOTA on both ImageNet-$256\times256$ and $512\times512$ benchmarks.
 
-| Model | Checkpoint | Model Size | FID-256x256 | FID-512x512 | FID-768x768 | FID-1024x1024 |
+| Model | Model Zoo | Model Size | FID-256x256 | FID-512x512 | FID-768x768 | FID-1024x1024 |
 |---------------|------------|---------|------------|------------|------------|------------|
-| NiT-XL-1000K | [🤗 HF](https://huggingface.co/GoodEnough/NiT-Models/resolve/main/model_1000K.safetensors) | 675M | 2.16 | 1.57 | 4.05 | 4.52 |
+| NiT-XL-1000K | [🤗 HF](https://huggingface.co/GoodEnough/NiT-XL-Models/resolve/main/model_1000K.safetensors) | 675M | 2.16 | 1.57 | 4.05 | 4.52 |
+| NiT-XL-1500K | [🤗 HF](https://huggingface.co/GoodEnough/NiT-XL-Models/resolve/main/model_1500K.safetensors) | 675M | 2.03 | 1.45 | - | - |
 
 
 ```bash
 mkdir checkpoints
-wget -c "https://huggingface.co/GoodEnough/NiT-Models/resolve/main/model_1000K.safetensors" -O checkpoints/model_1000K.safetensors
+wget -c "https://huggingface.co/GoodEnough/NiT-XL-Models/resolve/main/model_1000K.safetensors" -O checkpoints/model_1000K.safetensors
+
+wget -c "https://huggingface.co/GoodEnough/NiT-XL-Models/resolve/main/model_1500K.safetensors" -O checkpoints/model_1500K.safetensors
 ```
 
 
@@ -94,64 +104,17 @@ The sampling hyper-parameters for NiT-XL-1000K are summarized as follows:
 
 Sampling with NiT-XL-1000K model for $256\times256$-resolution images: 
 ```bash
-torchrun \
-  --nnodes 1 \
-  --nproc_per_node 8 \
-  projects/sample/sample_c2i_ddp.py \
-  --config configs/c2i/nit_xl_pack_merge_radio_16384.yaml \
-  --ckpt checkpoints/model_1000K.safetensors \
-  --sample-dir ./samples \
-  --height 256 \
-  --width 256 \
-  --per-proc-batch-size 32 \
-  --mode sde \
-  --num-steps 250 \
-  --cfg-scale 2.25 \
-  --guidance-low 0.0 \
-  --guidance-high 0.7 \
-  --slice_vae \
+bash scripts/sample/sample_256x256.sh
 ```
-
 
 Sampling with NiT-XL-1000K model for $512\times512$-resolution images: 
 ```bash
-torchrun \
-  --nnodes 1 \
-  --nproc_per_node 8 \
-  projects/sample/sample_c2i_ddp.py \
-  --config configs/c2i/nit_xl_pack_merge_radio_16384.yaml \
-  --ckpt checkpoints/model_1000K.safetensors \
-  --sample-dir ./samples \
-  --height 512 \
-  --width 512 \
-  --per-proc-batch-size 32 \
-  --mode sde \
-  --num-steps 250 \
-  --cfg-scale 2.05 \
-  --guidance-low 0.0 \
-  --guidance-high 0.7 \
-  --slice_vae \
+bash scripts/sample/sample_512x512.sh
 ```
-
 
 Sampling with NiT-XL-1000K model for $768\times768$-resolution images: 
 ```bash
-torchrun \
-  --nnodes 1 \
-  --nproc_per_node 8 \
-  projects/sample/sample_c2i_ddp.py \
-  --config configs/c2i/nit_xl_pack_merge_radio_16384.yaml \
-  --ckpt checkpoints/model_1000K.safetensors \
-  --sample-dir ./samples \
-  --height 768 \
-  --width 768 \
-  --per-proc-batch-size 32 \
-  --mode ode \
-  --num-steps 50 \
-  --cfg-scale 3.0 \
-  --guidance-low 0.0 \
-  --guidance-high 0.7 \
-  --slice_vae \
+bash scripts/sample/sample_768x768.sh
 ```
 
 # 3 Evaluation
@@ -205,7 +168,7 @@ The proprecessing procedure of $512\times512$-image and native-resolution image 
 Modify the corresponding config file and run the script.
 ```bash
 bash scripts/preprocess/preorocess_in1k_512x512.sh
-basb scripts/preprocess/preorocess_in1k_native_resolution.sh
+bash scripts/preprocess/preorocess_in1k_native_resolution.sh
 ```
 
 
@@ -275,11 +238,11 @@ Before training, please specify the `image_dir` as the directory of ImageNet1K d
 
 Train XL-model: 
 ```bash
-bash scripts/train_xl_model.sh
+bash scripts/train/train_xl_model.sh
 ```
-Train Base-model
+Specify the `image_dir` in `configs/c2i/nit_b_pack_merge_radio_65536.yaml` and train Base-model:
 ```bash
-bash scripts/train_b_model.sh
+bash scripts/train/train_b_model.sh
 ```
 
 
@@ -287,4 +250,12 @@ bash scripts/train_b_model.sh
 
 # BibTeX
 ```bibtex
+@article{wang2025native,
+    title={Native-Resolution Image Synthesis}, 
+    author={Wang, Zidong and Bai, Lei and Yue, Xiangyu and Ouyang, Wanli and Zhang, Yiyuan},
+    year={2025},
+    eprint={2506.xxxxx},
+    archivePrefix={arXiv},
+    primaryClass={cs.CV}
+}
 ```
