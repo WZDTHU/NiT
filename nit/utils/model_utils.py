@@ -15,7 +15,6 @@ def dc_ae_decode(dc_ae, latents):
     with torch.no_grad():
         z = latents / dc_ae.config.scaling_factor
         if dc_ae.use_slicing and z.size(0) > 1:
-            print('slicing', flush=True)
             decoded_slices = [dc_ae._decode(z_slice) for z_slice in z.split(1)]
             decoded = torch.cat(decoded_slices)
         else:
