@@ -251,11 +251,11 @@ bash scripts/train/train_b_model.sh
 # BibTeX
 ```bibtex
 @article{wang2025native,
-    title={Native-Resolution Image Synthesis}, 
-    author={Wang, Zidong and Bai, Lei and Yue, Xiangyu and Ouyang, Wanli and Zhang, Yiyuan},
-    year={2025},
-    eprint={2506.xxxxx},
-    archivePrefix={arXiv},
-    primaryClass={cs.CV}
+  title={Native-Resolution Image Synthesis}, 
+  author={Wang, Zidong and Bai, Lei and Yue, Xiangyu and Ouyang, Wanli and Zhang, Yiyuan},
+  year={2025},
+  eprint={2506.xxxxx},
+  archivePrefix={arXiv},
+  primaryClass={cs.CV}
 }
 ```
