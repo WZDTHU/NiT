@@ -162,6 +162,12 @@ other metrics.
 Please follow the [ADM's TensorFlow
 evaluation suite](https://github.com/openai/guided-diffusion/tree/main/evaluations)
 to setup the conda-environment and download the reference batch. 
+
+```bash
+wget -c "https://openaipublic.blob.core.windows.net/diffusion/jul-2021/ref_batches/classify_image_graph_def.pb" -O checkpoints/classify_image_graph_def.pb
+```
+
+
 Given the directory of the reference batch `REFERENCE_DIR` and the directory of the generated images `SAMPLING_DIR`, run the following codes:
 ```bash
 python projects/evaluate/adm_evaluator.py $REFERENCE_DIR $SAMPLING_DIR
