@@ -1,5 +1,5 @@
 NNODES = 1
-GPUS_PER_NODE = 1
+GPUS_PER_NODE = 2
 MASTER_ADDR = "localhost"
 export MASTER_PORT=60563
 mkdir -p workdir/c2i/nit_b_pack_merge_radio_65536

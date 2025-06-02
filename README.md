@@ -29,7 +29,7 @@
 <br>
 
 
-<b>Summary</b>: We propose Native-resolution diffusion Transformer (NiT), a model that explicitly learns varing resolutions and aspect ratios within its denoising process. This significantly improves training efficiency and generalization capability. To the best of our knowledge, NiT firstly attains SOTA results on both $256\times256$ ($2.08$ FID) and $512\times512$ ($1.48$ FID) benchmarks in class-guided ImageNet generation. NiT can also generalizes to arbitrary resolutions and aspect ratios, such as $4.52$ FID on $1024\times1024$ resolution, $4.11$ FID on $432\times768$ resolution.
+<b>Summary</b>: We propose Native-resolution diffusion Transformer (NiT), a model that explicitly learns varing resolutions and aspect ratios within its denoising process. This significantly improves training efficiency and generalization capability. To the best of our knowledge, <b>NiT firstly attains SOTA results on both $256\times256$ ($2.08$ FID) and $512\times512$ ($1.48$ FID) benchmarks</b> in class-guided ImageNet generation. NiT can also generalizes to arbitrary resolutions and aspect ratios, such as $4.52$ FID on $1024\times1024$ resolution, $4.11$ FID on $432\times768$ resolution.
 
 
 ![Figure](./assets/teaser.png)
@@ -158,7 +158,7 @@ torchrun \
 
 The sampling generates a folder of samples to compute FID, Inception Score and
 other metrics. 
-<b>Note that we do not pack the generate samples as a `.npz` file, this does not affect the calculation of FID and other metrics</b>
+<b>Note that we do not pack the generate samples as a `.npz` file, this does not affect the calculation of FID and other metrics.</b>
 Please follow the [ADM's TensorFlow
 evaluation suite](https://github.com/openai/guided-diffusion/tree/main/evaluations)
 to setup the conda-environment and download the reference batch. 
@@ -267,9 +267,15 @@ wget -c "https://huggingface.co/nvidia/RADIO/resolve/main/radio_v2.5-h.pth.tar" 
 The above steps setup the `packed_json`, `jsonl_dir`, and `latent_dirs` in `configs/c2i/nit_xl_pack_merge_radio_16384.yaml`. 
 Before training, please specify the `image_dir` as the directory of ImageNet1K dataset in your own machine. 
 
+Train XL-model: 
 ```bash
 bash scripts/train_xl_model.sh
 ```
+Train Base-model
+```bash
+bash scripts/train_b_model.sh
+```
+
 
 
 

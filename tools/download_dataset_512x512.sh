@@ -1,6 +1,6 @@
 target_dir="datasets/imagenet1k/dc-ae-f32c32-sana-1.1-diffusers-512x512"
 mkdir -p $target_dir
-base_url="https://huggingface.co/datasets/GoodEnough/NiT-Preprocessed-ImageNet1K/resolve/main/dc-ae-f32c32-sana-1.1-diffusers-512x512/"
+base_url="https://huggingface.co/datasets/GoodEnough/NiT-Preprocessed-ImageNet1K/resolve/main/dc-ae-f32c32-sana-1.1-diffusers-512x512"
 files=(
     "n01440764_n01697457.zip"
     "n01698640_n01855672.zip"
