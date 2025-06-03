@@ -52,7 +52,7 @@ data:
 training:
   tracker: null
   tracker_kwargs: {'wandb': {'group': 'c2i'}}
-  max_train_steps: 2000000
+  max_train_steps: 1000000
   checkpointing_steps: 2000
   checkpoints_total_limit: 2
   resume_from_checkpoint: latest
@@ -74,4 +74,4 @@ training:
   mixed_precision: bf16 # ["no", "fp16", "bf16"]
   allow_tf32: True 
   validation_steps: 500
-  checkpoint_list: [200000, 500000, 100000, 150000]
+  checkpoint_list: [200000, 500000, 100000]
