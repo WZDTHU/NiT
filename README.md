@@ -230,13 +230,17 @@ wget -c "https://huggingface.co/nvidia/RADIO/resolve/main/radio_v2.5-h.pth.tar" 
 The above steps setup the `packed_json`, `jsonl_dir`, and `latent_dirs` in `configs/c2i/nit_xl_pack_merge_radio_16384.yaml`. 
 Before training, please specify the `image_dir` as the directory of ImageNet1K dataset in your own machine. 
 
-To train the XL-model: 
+To train the XL-model (675M): 
 ```bash
 bash scripts/train/train_xl_model.sh
 ```
-Specify the `image_dir` in `configs/c2i/nit_b_pack_merge_radio_65536.yaml` and train the base-model:
+Specify the `image_dir` in `configs/c2i/nit_b_pack_merge_radio_65536.yaml` and train the base-model (131M):
 ```bash
 bash scripts/train/train_b_model.sh
+```
+Specify the `image_dir` in `configs/c2i/nit_xxl_pack_merge_radio_8192.yaml` and train the xxl-model (1.37B):
+```bash
+bash scripts/train/train_xxl_model.sh
 ```
 
 
