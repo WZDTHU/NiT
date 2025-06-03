@@ -155,10 +155,19 @@ class NiTBlock(nn.Module):
         self.mlp = Mlp(
             in_features=hidden_size, hidden_features=mlp_hidden_dim, act_layer=approx_gelu, drop=0
             )
-        self.adaLN_modulation = nn.Sequential(
-            nn.SiLU(),
-            nn.Linear(hidden_size, 6 * hidden_size, bias=True)
-        )
+        use_adaln_lora = block_kwargs.get('use_adaln_lora', False)
+        if use_adaln_lora:
+            adaln_lora_dim = block_kwargs['adaln_lora_dim']
+            self.adaLN_modulation = nn.Sequential(
+                nn.SiLU(),
+                nn.Linear(hidden_size, adaln_lora_dim, bias=True),
+                nn.Linear(adaln_lora_dim, 6 * hidden_size, bias=True)
+            )
+        else:
+            self.adaLN_modulation = nn.Sequential(
+                nn.SiLU(),
+                nn.Linear(hidden_size, 6 * hidden_size, bias=True)
+            )
 
     def forward(self, x, c, cu_seqlens, freqs_cos, freqs_sin):
         shift_msa, scale_msa, gate_msa, shift_mlp, scale_mlp, gate_mlp = (

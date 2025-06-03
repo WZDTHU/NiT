@@ -1,6 +1,6 @@
-NNODES = 1
-GPUS_PER_NODE = 8
-MASTER_ADDR = "localhost"
+NNODES=1
+GPUS_PER_NODE=8
+MASTER_ADDR="localhost"
 export MASTER_PORT=$((30000 + $RANDOM % 21000))
 
 CMD=" \
