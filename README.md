@@ -70,9 +70,8 @@ With a single model, NiT-XL can compete on multiple benchmarks and it achieves a
 
 ```bash
 mkdir checkpoints
-wget -c "https://huggingface.co/GoodEnough/NiT-XL-Models/resolve/main/model_1000K.safetensors" -O checkpoints/model_1000K.safetensors
-
-wget -c "https://huggingface.co/GoodEnough/NiT-XL-Models/resolve/main/model_1500K.safetensors" -O checkpoints/model_1500K.safetensors
+wget -c "https://huggingface.co/GoodEnough/NiT-XL-Models/resolve/main/model_1000K.safetensors" -O checkpoints/nit_xl_model_1000K.safetensors
+wget -c "https://huggingface.co/GoodEnough/NiT-XL-Models/resolve/main/model_1500K.safetensors" -O checkpoints/nit_xl_model_1500K.safetensors
 ```
 
 
@@ -199,7 +198,8 @@ You can download our preprocessed packed sampler-meta file using the following c
 bash tools/download_dataset_sampler_meta.sh
 ```
 The above command will download three the data-meta files on `datasets/imagenet1k/sampler_meta` directory:
-- `dc-ae-f32c32-sana-1.1-diffusers_merge_LPFHP_16384.json`: corresponds to $L=16384$. This is the setting in our experiments.
+- `dc-ae-f32c32-sana-1.1-diffusers_merge_LPFHP_8192.json`: corresponds to $L=16384$.
+- `dc-ae-f32c32-sana-1.1-diffusers_merge_LPFHP_16384.json`: corresponds to $L=16384$. This is the setting in NiT-XL experiments.
 - `dc-ae-f32c32-sana-1.1-diffusers_merge_LPFHP_32768.json`, corresponds to $L=32768$.
 - `dc-ae-f32c32-sana-1.1-diffusers_merge_LPFHP_65536.json`, corresponds to $L=65536$.
 
@@ -219,24 +219,35 @@ python tools/pack_dataset.py --data-meta datasets/imagenet1k/data_meta/dc-ae-f32
 
 #### Download Image Encoder
 
-We use RADIO-v2.5-H as our image encoder for REPA-loss.
+For NiT-S (33M) model, we use RADIO-v2.5-H as image encoder for REPA-loss.
+For other NiT models, we use RADIO-v2.5-H as our image encoder.
 
 ```bash
 wget -c "https://huggingface.co/nvidia/RADIO/resolve/main/radio_v2.5-h.pth.tar" -O checkpoints/radio_v2.5-h.pth.tar
+
+wget -c "https://huggingface.co/nvidia/RADIO/resolve/main/radio-v2.5-b_half.pth.tar" -O checkpoints/radio-v2.5-b_half.pth.tar
 ```
 
 
 ####  Training Scripts
 The above steps setup the `packed_json`, `jsonl_dir`, and `latent_dirs` in `configs/c2i/nit_xl_pack_merge_radio_16384.yaml`. 
 Before training, please specify the `image_dir` as the directory of ImageNet1K dataset in your own machine. 
-
 To train the XL-model (675M): 
 ```bash
 bash scripts/train/train_xl_model.sh
 ```
+
+Specify the `image_dir` in `configs/c2i/nit_s_pack_merge_radio_65536.yaml` and train the base-model (131M):
+```bash
+bash scripts/train/train_s_model.sh
+```
 Specify the `image_dir` in `configs/c2i/nit_b_pack_merge_radio_65536.yaml` and train the base-model (131M):
 ```bash
 bash scripts/train/train_b_model.sh
+```
+Specify the `image_dir` in `configs/c2i/nit_l_pack_merge_radio_16384.yaml` and train the base-model (457M):
+```bash
+bash scripts/train/train_l_model.sh
 ```
 Specify the `image_dir` in `configs/c2i/nit_xxl_pack_merge_radio_8192.yaml` and train the xxl-model (1.37B):
 ```bash

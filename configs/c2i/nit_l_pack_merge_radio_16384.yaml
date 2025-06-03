@@ -1,0 +1,75 @@
+model: 
+  transport:
+    path_type: linear
+    prediction: v
+    weighting: lognormal
+  network:
+    target: nit.models.c2i.nit_model.NiT
+    params:
+      class_dropout_prob: 0.1
+      num_classes: 1000
+      depth: 24
+      hidden_size: 1024
+      patch_size: 1
+      in_channels: 32
+      num_heads: 16
+      qk_norm: True
+      encoder_depth: 6
+      z_dim: 1280
+      use_checkpoint: False
+  # pretrained_vae:
+  vae_dir: mit-han-lab/dc-ae-f32c32-sana-1.1-diffusers
+  slice_vae: False
+  tile_vae: False
+  # repa encoder
+  enc_type: radio
+  enc_dir: checkpoints/radio_v2.5-h.pth.tar
+  proj_coeff: 1.0
+  # ema
+  use_ema: True
+  ema_decay: 0.9999
+  
+data:
+  data_type: improved_pack
+  dataset:
+    packed_json: datasets/imagenet1k/sampler_meta/dc-ae-f32c32-sana-1.1-diffusers_merge_LPFHP_16384.json
+    jsonl_dir: datasets/imagenet1k/data_meta/dc-ae-f32c32-sana-1.1-diffusers_merge_meta.jsonl
+    data_types: ['native-resolution', 'fixed-256x256', 'fixed-512x512']
+    latent_dirs: [
+      'datasets/imagenet1k/dc-ae-f32c32-sana-1.1-diffusers-native-resolution',
+      'datasets/imagenet1k/dc-ae-f32c32-sana-1.1-diffusers-256x256',
+      'datasets/imagenet1k/dc-ae-f32c32-sana-1.1-diffusers-512x512',
+    ]
+    image_dir: <Your imagenet1k directory>/train
+  dataloader:
+    num_workers: 4
+    batch_size: 1  # Batch size (per device) for the training dataloader.
+
+  
+  
+training:
+  tracker: null
+  tracker_kwargs: {'wandb': {'group': 'c2i'}}
+  max_train_steps: 2000000
+  checkpointing_steps: 2000
+  checkpoints_total_limit: 2
+  resume_from_checkpoint: latest
+  learning_rate: 5.0e-5
+  learning_rate_base_batch_size: 4
+  scale_lr: True
+  lr_scheduler: constant # "linear", "cosine", "cosine_with_restarts", "polynomial", "constant", "constant_with_warmup"]
+  lr_warmup_steps: 0
+  gradient_accumulation_steps: 1
+  optimizer: 
+    target: torch.optim.AdamW
+    params:
+      # betas: ${tuple:0.9, 0.999}
+      betas: [0.9, 0.95]
+      weight_decay: 1.0e-2
+      eps: 1.0e-6
+  max_grad_norm: 1.0
+  proportion_empty_prompts: 0.0
+  mixed_precision: bf16 # ["no", "fp16", "bf16"]
+  allow_tf32: True 
+  validation_steps: 500
+  checkpoint_list: [200000, 500000, 100000, 150000]
