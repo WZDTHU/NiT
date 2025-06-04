@@ -21,7 +21,7 @@
 </div>
 <h3 align="center">
 [<a href="https://wzdthu.github.io/NiT">project page</a>]&emsp;
-[<a href="">arXiv</a>]&emsp;
+[<a href="https://arxiv.org/abs/2506.03131">arXiv</a>]&emsp;
 [<a href="https://huggingface.co/datasets/GoodEnough/NiT-Preprocessed-ImageNet1K">Dataset</a>]&emsp;
 [<a href="https://huggingface.co/GoodEnough/NiT-Models">Model</a>]&emsp;
 
