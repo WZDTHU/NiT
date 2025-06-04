@@ -264,7 +264,7 @@ If you find the project useful, please kindly cite:
   title={Native-Resolution Image Synthesis}, 
   author={Wang, Zidong and Bai, Lei and Yue, Xiangyu and Ouyang, Wanli and Zhang, Yiyuan},
   year={2025},
-  eprint={2506.xxxxx},
+  eprint={2506.03131},
   archivePrefix={arXiv},
   primaryClass={cs.CV}
 }
